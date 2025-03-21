@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import accountStore, { Account } from '../stores/AccountStore';
-import AccountDetailsCard from './AccountDetailsCard';
+import AccountDetailsTable from '../components/AccountDetailsTable';
 
 const AccountManager: React.FC = observer(() => {
 	// Fetch accounts on mount
@@ -38,7 +38,7 @@ const AccountManager: React.FC = observer(() => {
 						key={account.firstName}
 						className='p-4 border rounded-lg shadow-sm bg-black flex justify-between items-center'
 					>
-						{editMode === account.firstName ? (
+						{editMode === account.firstName && (
 							<div className='flex flex-col space-y-2'>
 								<input
 									type='text'
@@ -78,14 +78,11 @@ const AccountManager: React.FC = observer(() => {
 									Save
 								</button>
 							</div>
-						) : (
-							<div className='space-y-1'>
-								<AccountDetailsCard account={account} handleEdit={handleEdit} />
-							</div>
 						)}
 					</div>
 				))}
 			</div>
+			<AccountDetailsTable />
 		</div>
 	);
 });

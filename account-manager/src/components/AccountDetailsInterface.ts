@@ -1,4 +1,4 @@
-export interface Account {
+export interface AccountDetailsInterface {
 	title: string;
 	firstName: string;
 	lastName: string;
