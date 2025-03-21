@@ -1,8 +1,9 @@
 import { makeAutoObservable } from 'mobx';
 import axios from 'axios';
+import {data} from '../data/data';
 
 export interface Account {
-  id: string
+  id?: string
   title: string;
   firstName: string;
   lastName: string;
@@ -26,7 +27,7 @@ class AccountStore {
     this.loading = true;
     try {
       const response = await axios.get<Account[]>('http://localhost:8089/api/accounts');
-      this.accounts = response.data;
+      this.accounts = response.data ? response.data : data;
     } catch (error) {
       this.error = 'Failed to fetch data';
     } finally {

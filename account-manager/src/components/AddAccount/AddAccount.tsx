@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import AccountDetailsTable from '../AccountDetailsTable';
 
 const AddAccount = () => {
 	const [formData, setFormData] = useState({
-		id: '',
 		firstName: '',
 		lastName: '',
 		title: '',
@@ -20,10 +18,13 @@ const AddAccount = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log('Form Data', { ...formData, id: uuidv4() });
+
+		console.log('Form Data being sent:', formData); // Log the form data for debugging
+
 		try {
+			// Send the formData without an id to the backend
 			const response = await axios.post(
-				'http://localhost:8089/api/accounts',
+				'http://localhost:8089/api/accounts', // API endpoint
 				formData,
 				{
 					headers: {
@@ -32,13 +33,18 @@ const AddAccount = () => {
 				}
 			);
 
-			console.log('response.data', response.data);
-			console.log('Form data submitted successfully', response.data);
+			// Log the response to verify success
+			console.log('Form data submitted successfully:', response.data);
 		} catch (error) {
-			console.error('Error submitting form data:', error);
+			// Log the error to understand what's happening
+			console.error(
+				'Error submitting form data:',
+				error.response || error.message
+			);
 		}
 
-		setFormData({ firstName: '', lastName: '', title: '', dob: '', id: '' });
+		// Reset the form after submission
+		setFormData({ firstName: '', lastName: '', title: '', dob: '' });
 	};
 
 	return (

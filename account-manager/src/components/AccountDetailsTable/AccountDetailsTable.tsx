@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import accountStore, { Account } from '../../stores/AccountStore';
+import accountStore from '../../stores/AccountStore';
 import FilterDropdown from './components/FilterDropDown';
 import Search from './components/Search';
 import Pagination from './components/Pagination';
 import AddAccount from '../AddAccount';
 import EditAccount from './components/EditAccount';
+import axios from 'axios';
 
 const AccountDetailsTable: React.FC = observer(() => {
 	const { accounts, loading, error, fetchAccounts } = accountStore;
@@ -17,9 +18,11 @@ const AccountDetailsTable: React.FC = observer(() => {
 	}, [fetchAccounts]);
 
 	const handleEdit = (id: string) => {
-		console.log('setCurrentAccountId:', id);
-
 		setCurrentAccountId(id);
+	};
+
+	const closeAddView = () => {
+		setShowAddAccount(false);
 	};
 
 	const closeEditView = () => {
@@ -38,20 +41,30 @@ const AccountDetailsTable: React.FC = observer(() => {
 		currentPage * rowsPerPage
 	);
 
+	const handleDelete = async (id: string) => {
+		try {
+			// Call the delete endpoint on the server
+			await axios.delete(`http://localhost:8089/api/accounts/${id}`);
+			// Remove the account from the store
+			accountStore.accounts = accountStore.accounts.filter(
+				(account) => account.id !== id
+			);
+			console.log('Account deleted successfully');
+		} catch (error) {
+			console.error('Error deleting account:', error);
+		}
+	};
+
 	return (
 		<div className='p-4 bg-white text-black rounded-lg shadow-lg'>
 			<div className='flex items-center justify-between mb-4 space-x-4'>
-				<h1 className='text-lg font-bold'>
-					{showAddAccount ? 'Adding new account' : 'Account Details'}{' '}
-				</h1>
-				{!showAddAccount && (
-					<button
-						className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
-						onClick={() => setShowAddAccount(true)}
-					>
-						Add Account
-					</button>
-				)}
+				<h1 className='text-lg font-bold'>Account Details</h1>
+				<button
+					className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+					onClick={() => setShowAddAccount(true)}
+				>
+					Add Account
+				</button>
 			</div>
 
 			{loading && <p>Loading...</p>}
@@ -60,93 +73,101 @@ const AccountDetailsTable: React.FC = observer(() => {
 
 			{!loading && accounts.length > 0 && (
 				<>
-					{!showAddAccount && (
-						<>
-							<div className='flex items-center justify-between mb-4 space-x-4'>
-								<FilterDropdown />
-								<Search />
-							</div>
-							<table className='table-auto w-full border border-gray-300'>
-								<thead>
-									<tr>
-										<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
-											Title
-										</th>
-										<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
-											First Name
-										</th>
-										<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
-											Last Name
-										</th>
-										<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
-											DOB
-										</th>
-									</tr>
-								</thead>
-								<tbody>
-									{paginatedAccounts.map((account, index) => (
-										<tr key={index}>
-											<td className='border border-gray-300 px-4 py-2 text-black'>
-												{account.title}
-											</td>
-											<td className='border border-gray-300 px-4 py-2 text-black'>
-												{account.firstName}
-											</td>
-											<td className='border border-gray-300 px-4 py-2 text-black'>
-												{account.lastName}
-											</td>
-											<td className='border border-gray-300 px-4 py-2 text-black'>
-												{new Date(account.dob).toLocaleDateString()}
-											</td>
-											<td className='border border-gray-300 px-4 py-2 text-black'>
-												<button
-													className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
-													onClick={() => handleEdit(account.id)}
-												>
-													{}
-													Edit
-												</button>
-											</td>
-											<td className='border border-gray-300 px-4 py-2 text-black'>
-												<button
-													className='px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
-													onClick={() => {
-														accountStore.accounts =
-															accountStore.accounts.filter(
-																(a) => a.firstName !== account.firstName
-															);
-													}}
-												>
-													Delete
-												</button>
-											</td>
-										</tr>
-									))}
-								</tbody>
-							</table>
-							<div>
-								{/* Pagination */}
-								<Pagination
-									currentPage={currentPage}
-									totalPages={totalPages}
-									onPageChange={(page) => setCurrentPage(page)}
-								/>
-							</div>
-						</>
-					)}
-
 					<div className='flex items-center justify-between mb-4 space-x-4'>
-						{showAddAccount && <AddAccount />}
+						<FilterDropdown />
+						<Search />
 					</div>
-					<div className='flex items-center justify-between mb-4 space-x-4'>
-						{currentAccountId && (
-							<EditAccount
-								accountId={currentAccountId}
-								onClose={closeEditView}
-							/>
-						)}
-					</div>
+					<table className='table-auto w-full border border-gray-300'>
+						<thead>
+							<tr>
+								<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
+									Title
+								</th>
+								<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
+									First Name
+								</th>
+								<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
+									Last Name
+								</th>
+								<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
+									DOB
+								</th>
+								<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
+									Actions
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{paginatedAccounts.map((account) => (
+								<tr key={account.id}>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										{account.title}
+									</td>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										{account.firstName}
+									</td>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										{account.lastName}
+									</td>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										{new Date(account.dob).toLocaleDateString()}
+									</td>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										<button
+											className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+											onClick={() => handleEdit(account.id)}
+										>
+											Edit
+										</button>
+									</td>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										<button
+											className='px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
+											onClick={() => handleDelete(account.id)}
+										>
+											Delete
+										</button>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+					<Pagination
+						currentPage={currentPage}
+						totalPages={totalPages}
+						onPageChange={(page) => setCurrentPage(page)}
+					/>
 				</>
+			)}
+
+			{/* Overlay for AddAccount */}
+			{showAddAccount && (
+				<div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50'>
+					<div className='bg-white rounded-lg p-6 shadow-lg w-full max-w-md'>
+						<AddAccount />
+						<button
+							className='mt-10 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
+							onClick={closeAddView}
+						>
+							Close
+						</button>
+					</div>
+				</div>
+			)}
+
+			{/* Overlay for EditAccount */}
+			{currentAccountId && (
+				<div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50'>
+					<div className='bg-white rounded-lg p-6 shadow-lg w-full max-w-md'>
+						<EditAccount accountId={currentAccountId} onClose={closeEditView} />
+						<button
+							className='mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
+							onClick={closeEditView}
+						>
+							Close
+						</button>
+					</div>
+				</div>
 			)}
 		</div>
 	);
