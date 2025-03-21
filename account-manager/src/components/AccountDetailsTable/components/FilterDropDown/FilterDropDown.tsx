@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const FilterDropdown: React.FC = () => {
 	const [isOpen, setIsOpen] = useState(false); // Track dropdown open/close state
-	const [selectedFilter, setSelectedFilter] = useState('Last 30 days'); // Track the selected filter
+	const [selectedFilter, setSelectedFilter] = useState('Date of Birth'); // Track the selected filter
 
 	const toggleDropdown = () => setIsOpen(!isOpen); // Toggle dropdown visibility
 	const handleFilterChange = (filter: string) => {
@@ -50,13 +50,7 @@ const FilterDropdown: React.FC = () => {
 			{isOpen && (
 				<div className='z-10 absolute w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600 mt-2'>
 					<ul className='p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200'>
-						{[
-							'Last day',
-							'Last 7 days',
-							'Last 30 days',
-							'Last month',
-							'Last year'
-						].map((filter) => (
+						{['First Name', 'Last Name', 'Date of Birth'].map((filter) => (
 							<li key={filter}>
 								<div
 									className='flex items-center p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer'

@@ -145,12 +145,14 @@ const AccountDetailsTable: React.FC = observer(() => {
 				<div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50'>
 					<div className='bg-white rounded-lg p-6 shadow-lg w-full max-w-md'>
 						<AddAccount />
-						<button
-							className='mt-10 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
-							onClick={closeAddView}
-						>
-							Close
-						</button>
+						<div className='mt-10'>
+							<button
+								className='mt-10 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
+								onClick={closeAddView}
+							>
+								Close
+							</button>
+						</div>
 					</div>
 				</div>
 			)}
@@ -160,12 +162,14 @@ const AccountDetailsTable: React.FC = observer(() => {
 				<div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50'>
 					<div className='bg-white rounded-lg p-6 shadow-lg w-full max-w-md'>
 						<EditAccount accountId={currentAccountId} onClose={closeEditView} />
-						<button
-							className='mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
-							onClick={closeEditView}
-						>
-							Close
-						</button>
+						<div className='mt-10'>
+							<button
+								className='mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
+								onClick={closeEditView}
+							>
+								Close
+							</button>
+						</div>
 					</div>
 				</div>
 			)}

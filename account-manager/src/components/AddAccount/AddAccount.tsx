@@ -56,7 +56,7 @@ const AddAccount = () => {
 						htmlFor='title'
 						className='block text-gray-700 text-sm font-bold mb-2'
 					>
-						Title
+						Title <span className='text-red-500 text-lg'>*</span>
 					</label>
 					<select
 						id='title'
@@ -83,6 +83,9 @@ const AddAccount = () => {
 						className='block text-gray-700 text-sm font-bold mb-2'
 					>
 						First Name
+						<span className='text-red-500 text-lg' text-lg>
+							*
+						</span>
 					</label>
 					<input
 						id='firstName'
@@ -102,7 +105,7 @@ const AddAccount = () => {
 						htmlFor='lastName'
 						className='block text-gray-700 text-sm font-bold mb-2'
 					>
-						Last Name
+						Last Name<span className='text-red-500 text-lg'>*</span>
 					</label>
 					<input
 						id='lastName'
@@ -122,7 +125,7 @@ const AddAccount = () => {
 						htmlFor='dob'
 						className='block text-gray-700 text-sm font-bold mb-2'
 					>
-						Date of Birth
+						Date of Birth<span className='text-red-500 text-lg'>*</span>
 					</label>
 					<input
 						id='dob'
