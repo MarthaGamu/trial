@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import axios from 'axios';
 
 export interface Account {
+  id: string
   title: string;
   firstName: string;
   lastName: string;
@@ -24,7 +25,7 @@ class AccountStore {
   async fetchAccounts() {
     this.loading = true;
     try {
-      const response = await axios.get<Account[]>('https://67d15445825945773eb3e5b9.mockapi.io/api/v1/users');
+      const response = await axios.get<Account[]>('http://localhost:8089/api/accounts');
       this.accounts = response.data;
     } catch (error) {
       this.error = 'Failed to fetch data';

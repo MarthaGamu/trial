@@ -5,15 +5,26 @@ import FilterDropdown from './components/FilterDropDown';
 import Search from './components/Search';
 import Pagination from './components/Pagination';
 import AddAccount from '../AddAccount';
+import EditAccount from './components/EditAccount';
 
 const AccountDetailsTable: React.FC = observer(() => {
-	const { accounts, loading, error, fetchAccounts, sortedAccounts } =
-		accountStore;
+	const { accounts, loading, error, fetchAccounts } = accountStore;
 	const [showAddAccount, setShowAddAccount] = useState(false);
+	const [currentAccountId, setCurrentAccountId] = useState<string | null>(null);
 
 	useEffect(() => {
 		fetchAccounts();
 	}, [fetchAccounts]);
+
+	const handleEdit = (id: string) => {
+		console.log('setCurrentAccountId:', id);
+
+		setCurrentAccountId(id);
+	};
+
+	const closeEditView = () => {
+		setCurrentAccountId(null);
+	};
 
 	const rowsPerPage = 5; // Number of rows per page
 	const [currentPage, setCurrentPage] = useState(1);
@@ -90,8 +101,9 @@ const AccountDetailsTable: React.FC = observer(() => {
 											<td className='border border-gray-300 px-4 py-2 text-black'>
 												<button
 													className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
-													onClick={() => accountStore.setEditMode(account)}
+													onClick={() => handleEdit(account.id)}
 												>
+													{}
 													Edit
 												</button>
 											</td>
@@ -125,6 +137,14 @@ const AccountDetailsTable: React.FC = observer(() => {
 
 					<div className='flex items-center justify-between mb-4 space-x-4'>
 						{showAddAccount && <AddAccount />}
+					</div>
+					<div className='flex items-center justify-between mb-4 space-x-4'>
+						{currentAccountId && (
+							<EditAccount
+								accountId={currentAccountId}
+								onClose={closeEditView}
+							/>
+						)}
 					</div>
 				</>
 			)}

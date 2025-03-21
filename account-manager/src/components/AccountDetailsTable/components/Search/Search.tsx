@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function Search() {
 	return (
 		<div className='flex items-center border border-gray-300 rounded px-3 py-2'>

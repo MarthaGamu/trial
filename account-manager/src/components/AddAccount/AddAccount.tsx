@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import AccountDetailsTable from '../AccountDetailsTable';
 
 const AddAccount = () => {
 	const [formData, setFormData] = useState({
+		id: '',
 		firstName: '',
 		lastName: '',
 		title: '',
 		dob: ''
 	});
-
+	//const [submit, setSubmit] = useState(false);
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => {
@@ -17,7 +20,7 @@ const AddAccount = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log('Form Data', formData);
+		console.log('Form Data', { ...formData, id: uuidv4() });
 		try {
 			const response = await axios.post(
 				'http://localhost:8089/api/accounts',
@@ -28,13 +31,14 @@ const AddAccount = () => {
 					}
 				}
 			);
+
 			console.log('response.data', response.data);
 			console.log('Form data submitted successfully', response.data);
 		} catch (error) {
 			console.error('Error submitting form data:', error);
 		}
 
-		setFormData({ firstName: '', lastName: '', title: '', dob: '' });
+		setFormData({ firstName: '', lastName: '', title: '', dob: '', id: '' });
 	};
 
 	return (
@@ -53,6 +57,7 @@ const AddAccount = () => {
 						name='title'
 						value={formData.title}
 						onChange={handleChange}
+						required
 						className='w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 					>
 						<option value='' disabled>
@@ -80,6 +85,7 @@ const AddAccount = () => {
 						placeholder='Enter First Name'
 						value={formData.firstName}
 						onChange={handleChange}
+						required
 						className='w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 					/>
 				</div>
@@ -99,6 +105,7 @@ const AddAccount = () => {
 						placeholder='Enter Last Name'
 						value={formData.lastName}
 						onChange={handleChange}
+						required
 						className='w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 					/>
 				</div>
@@ -117,6 +124,7 @@ const AddAccount = () => {
 						name='dob'
 						value={formData.dob}
 						onChange={handleChange}
+						required
 						className='w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 					/>
 				</div>
