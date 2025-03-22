@@ -12,6 +12,7 @@ export interface Account {
 }
 
 class AccountStore {
+  id: string
   accounts: Account[] = [];
   loading: boolean = false;
   error: string | null = null;

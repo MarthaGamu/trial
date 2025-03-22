@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import accountStore from '../../stores/AccountStore';
+import accountStore, { Account } from '../../stores/AccountStore';
 import FilterDropdown from './components/FilterDropDown';
 import Search from './components/Search';
 import Pagination from './components/Pagination';
@@ -8,6 +8,7 @@ import AddAccount from './components/AddAccount';
 import EditAccount from './components/EditAccount';
 import axios from 'axios';
 import DeleteNotication from './components/DeleteNotification';
+import Fuse from 'fuse.js';
 
 const AccountDetailsTable: React.FC = observer(() => {
 	const { accounts, loading, error, fetchAccounts } = accountStore;
@@ -15,6 +16,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 	const [currentAccountId, setCurrentAccountId] = useState<string | null>(null);
 	const [deleteId, setDeleteId] = useState<string | null>(null);
 	const [searchQuery, setSearchQuery] = useState('');
+	const [selectedFilter, setSelectedFilter] = useState('Date of Birth');
 
 	useEffect(() => {
 		fetchAccounts();
@@ -32,23 +34,53 @@ const AccountDetailsTable: React.FC = observer(() => {
 		setCurrentAccountId(null);
 	};
 
-	// Filter accounts only if the search query exists
+	// Fuse.js options for searching
+	const fuseOptions = {
+		keys: ['title', 'firstName', 'lastName'],
+		threshold: 0.3, // You can adjust the threshold for fuzzy search
+		includeScore: true // Optionally include the score for debugging
+	};
+
+	// Initialize Fuse.js with the account data
+	const fuse = new Fuse(accounts, fuseOptions);
+
+	// Filter accounts using Fuse.js if the search query exists
 	const filteredAccounts = searchQuery
-		? accounts.filter((account) =>
-				`${account.title} ${account.firstName} ${account.lastName}`
-					.toLowerCase()
-					.includes(searchQuery.toLowerCase())
-		  )
+		? fuse.search(searchQuery).map((result) => result.item)
 		: accounts;
+
+	// Apply the selected filter logic
+	const applyFilter = (accounts: Account[], filter: string) => {
+		// Create a copy of the array using slice() and then sort
+		const accountsCopy = accounts.slice();
+
+		if (filter === 'Youngest') {
+			// Sort by the most recent (youngest) date of birth (ascending order)
+			return accountsCopy.sort(
+				(a, b) => new Date(b.dob).getTime() - new Date(a.dob).getTime()
+			);
+		} else if (filter === 'Oldest') {
+			// Sort by the oldest date of birth (descending order)
+			return accountsCopy.sort(
+				(a, b) => new Date(a.dob).getTime() - new Date(b.dob).getTime()
+			);
+		}
+
+		// Default: return the accounts without sorting
+		return accountsCopy;
+	};
+
+	// Apply filter to the filtered accounts list
+	const sortedAccounts = applyFilter(filteredAccounts, selectedFilter);
 
 	const rowsPerPage = 10; // Number of rows per page
 	const [currentPage, setCurrentPage] = useState(1);
 
-	// Calculate total pages based on filtered accounts
-	const totalPages = Math.ceil(filteredAccounts.length / rowsPerPage);
+	// Calculate total pages based on sorted accounts
+	const totalPages = Math.ceil(sortedAccounts.length / rowsPerPage);
 
 	// Paginated accounts for the current page
-	const paginatedAccounts = filteredAccounts.slice(
+	const paginatedAccounts = sortedAccounts.slice(
 		(currentPage - 1) * rowsPerPage,
 		currentPage * rowsPerPage
 	);
@@ -72,6 +104,11 @@ const AccountDetailsTable: React.FC = observer(() => {
 		setDeleteId(null);
 	};
 
+	// Handle the filter change from the FilterDropdown
+	const handleFilterChange = (filter: string) => {
+		setSelectedFilter(filter);
+	};
+
 	return (
 		<main className='p-4 bg-white text-black rounded-lg shadow-lg'>
 			<div className='flex items-center justify-between mb-4 space-x-4'>
@@ -88,10 +125,10 @@ const AccountDetailsTable: React.FC = observer(() => {
 			{error && <p className='text-red-500'>{error}</p>}
 			{!loading && !error && accounts.length === 0 && <p>No accounts found.</p>}
 
-			{!loading && filteredAccounts.length > 0 && (
+			{!loading && sortedAccounts.length > 0 && (
 				<>
 					<div className='flex items-center justify-between mb-4 space-x-4'>
-						<FilterDropdown />
+						<FilterDropdown onFilterChange={handleFilterChange} />
 						<Search onSearch={(query) => setSearchQuery(query)} />
 					</div>
 					<table className='table-auto w-full border border-gray-300'>
@@ -115,39 +152,37 @@ const AccountDetailsTable: React.FC = observer(() => {
 							</tr>
 						</thead>
 						<tbody>
-							{paginatedAccounts.map((account) => (
-								<>
-									<tr key={account.id}>
-										<td className='border border-gray-300 px-4 py-2 text-black'>
-											{account.title}
-										</td>
-										<td className='border border-gray-300 px-4 py-2 text-black'>
-											{account.firstName}
-										</td>
-										<td className='border border-gray-300 px-4 py-2 text-black'>
-											{account.lastName}
-										</td>
-										<td className='border border-gray-300 px-4 py-2 text-black'>
-											{new Date(account.dob).toLocaleDateString()}
-										</td>
-										<td className='border border-gray-300 px-4 py-2 text-black'>
-											<button
-												className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
-												onClick={() => handleEdit(account.id)}
-											>
-												Edit
-											</button>
-										</td>
-										<td className='border border-gray-300 px-4 py-2 text-black'>
-											<button
-												className='px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
-												onClick={() => setDeleteId(account.id)}
-											>
-												Delete
-											</button>
-										</td>
-									</tr>
-								</>
+							{paginatedAccounts.map((account: Account) => (
+								<tr key={account.id}>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										{account.title}
+									</td>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										{account.firstName}
+									</td>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										{account.lastName}
+									</td>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										{new Date(account.dob).toLocaleDateString()}
+									</td>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										<button
+											className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+											onClick={() => handleEdit(account.id)}
+										>
+											Edit
+										</button>
+									</td>
+									<td className='border border-gray-300 px-4 py-2 text-black'>
+										<button
+											className='px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
+											onClick={() => setDeleteId(account.id)}
+										>
+											Delete
+										</button>
+									</td>
+								</tr>
 							))}
 						</tbody>
 					</table>

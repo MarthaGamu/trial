@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-const FilterDropdown: React.FC = () => {
+const FilterDropdown: React.FC<{
+	onFilterChange: (filter: string) => void;
+}> = ({ onFilterChange }) => {
 	const [isOpen, setIsOpen] = useState(false); // Track dropdown open/close state
 	const [selectedFilter, setSelectedFilter] = useState('Date of Birth'); // Track the selected filter
 
@@ -8,6 +10,7 @@ const FilterDropdown: React.FC = () => {
 	const handleFilterChange = (filter: string) => {
 		setSelectedFilter(filter);
 		setIsOpen(false); // Close dropdown on selection
+		onFilterChange(filter); // Pass the selected filter to the parent
 	};
 
 	return (
