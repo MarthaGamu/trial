@@ -13,8 +13,8 @@ const App: React.FC = () => {
 	const { loading, error } = accountStore;
 
 	return (
-		<div className='flex flex-col min-h-screen bg-gray-900'>
-			<Navbar />
+		<div className='flex flex-col min-h-screen'>
+			{/* <Navbar /> */}
 			<div className='flex-grow flex justify-center items-center bg-white'>
 				<div className='container mx-auto p-4'>
 					{loading && <div className='text-center'>Loading...</div>}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { FaPaperPlane } from 'react-icons/fa';
 
 const AddAccount = () => {
 	const intialFormData = {
@@ -48,13 +49,13 @@ const AddAccount = () => {
 	};
 
 	return (
-		<div className='container mx-auto p-4 max-w-md bg-white rounded-lg shadow-lg'>
+		<div className='container mx-auto p-4 max-w-md rounded-lg shadow-lg'>
 			<form onSubmit={handleSubmit}>
 				{/* Title Dropdown */}
 				<div className='mb-4'>
 					<label
 						htmlFor='title'
-						className='block text-gray-700 text-sm font-bold mb-2'
+						className='block text-gray-300 text-sm font-bold mb-2'
 					>
 						Title <span className='text-red-500 text-lg'>*</span>
 					</label>
@@ -64,7 +65,7 @@ const AddAccount = () => {
 						value={formData.title}
 						onChange={handleChange}
 						required
-						className='w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+						className='w-full px-3 py-2 text-gray-300 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 					>
 						<option value='' disabled>
 							Select Title
@@ -80,7 +81,7 @@ const AddAccount = () => {
 				<div className='mb-4'>
 					<label
 						htmlFor='firstName'
-						className='block text-gray-700 text-sm font-bold mb-2'
+						className='block text-gray-300 text-sm font-bold mb-2'
 					>
 						First Name
 						<span className='text-red-500 text-lg' text-lg>
@@ -95,7 +96,7 @@ const AddAccount = () => {
 						value={formData.firstName}
 						onChange={handleChange}
 						required
-						className='w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+						className='w-full px-3 py-2 text-gray-300 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 					/>
 				</div>
 
@@ -103,7 +104,7 @@ const AddAccount = () => {
 				<div className='mb-4'>
 					<label
 						htmlFor='lastName'
-						className='block text-gray-700 text-sm font-bold mb-2'
+						className='block text-gray-300 text-sm font-bold mb-2'
 					>
 						Last Name<span className='text-red-500 text-lg'>*</span>
 					</label>
@@ -115,7 +116,7 @@ const AddAccount = () => {
 						value={formData.lastName}
 						onChange={handleChange}
 						required
-						className='w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+						className='w-full px-3 py-2 text-gray-300 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 					/>
 				</div>
 
@@ -123,7 +124,7 @@ const AddAccount = () => {
 				<div className='mb-4'>
 					<label
 						htmlFor='dob'
-						className='block text-gray-700 text-sm font-bold mb-2'
+						className='block text-gray-300 text-sm font-bold mb-2'
 					>
 						Date of Birth<span className='text-red-500 text-lg'>*</span>
 					</label>
@@ -134,15 +135,15 @@ const AddAccount = () => {
 						value={formData.dob}
 						onChange={handleChange}
 						required
-						className='w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+						className='w-full px-3 py-2 text-gray-300 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 					/>
 				</div>
 
-				{/* Submit Button */}
 				<button
 					type='submit'
-					className='w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'
+					className='w-full px-4 py-2 text-white border border-blue-500 rounded-lg hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 inline-flex justify-center items-center text-center cursor-pointer'
 				>
+					<FaPaperPlane className='w-4 h-4 mr-2' />
 					Submit
 				</button>
 			</form>

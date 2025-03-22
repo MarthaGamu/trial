@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaTimes, FaSave } from 'react-icons/fa';
 import accountStore, { Account } from '../../../../stores/AccountStore';
 
 interface EditAccountProps {
@@ -62,13 +63,15 @@ const EditAccount: React.FC<EditAccountProps> = ({ accountId, onClose }) => {
 	}
 
 	return (
-		<div className='p-4 bg-white shadow-lg rounded-lg'>
-			<h2 className='text-xl font-bold text-center mb-4'>Edit Account</h2>
+		<div>
+			<h2 className='text-xl font-bold text-center mb-4 text-gray-300'>
+				Edit Account
+			</h2>
 			<form onSubmit={handleSubmit}>
 				<div className='mb-4'>
 					<label
 						htmlFor='title'
-						className='block text-sm font-bold text-gray-700 mb-2'
+						className='block text-sm font-bold text-gray-300 mb-2'
 					>
 						Title
 					</label>
@@ -77,7 +80,7 @@ const EditAccount: React.FC<EditAccountProps> = ({ accountId, onClose }) => {
 						name='title'
 						value={formData.title}
 						onChange={handleChange}
-						className='w-full border px-3 py-2 rounded-lg focus:ring focus:ring-blue-500'
+						className='w-full border text-gray-300 px-3 py-2 rounded-lg focus:ring focus:ring-blue-500'
 					>
 						<option value='Mr.'>Mr.</option>
 						<option value='Ms.'>Ms.</option>
@@ -88,7 +91,7 @@ const EditAccount: React.FC<EditAccountProps> = ({ accountId, onClose }) => {
 				<div className='mb-4'>
 					<label
 						htmlFor='firstName'
-						className='block text-sm font-bold text-gray-700 mb-2'
+						className='block text-sm font-bold text-gray-300 mb-2'
 					>
 						First Name
 					</label>
@@ -98,13 +101,13 @@ const EditAccount: React.FC<EditAccountProps> = ({ accountId, onClose }) => {
 						type='text'
 						value={formData.firstName}
 						onChange={handleChange}
-						className='w-full border px-3 py-2 rounded-lg focus:ring focus:ring-blue-500'
+						className='w-full text-gray-300 border px-3 py-2 rounded-lg focus:ring focus:ring-blue-500'
 					/>
 				</div>
 				<div className='mb-4'>
 					<label
 						htmlFor='lastName'
-						className='block text-sm font-bold text-gray-700 mb-2'
+						className='block text-sm font-bold text-gray-300 mb-2'
 					>
 						Last Name
 					</label>
@@ -114,13 +117,13 @@ const EditAccount: React.FC<EditAccountProps> = ({ accountId, onClose }) => {
 						type='text'
 						value={formData.lastName}
 						onChange={handleChange}
-						className='w-full border px-3 py-2 rounded-lg focus:ring focus:ring-blue-500'
+						className='w-full text-gray-300 border px-3 py-2 rounded-lg focus:ring focus:ring-blue-500'
 					/>
 				</div>
 				<div className='mb-4'>
 					<label
 						htmlFor='dob'
-						className='block text-sm font-bold text-gray-700 mb-2'
+						className='block text-sm font-bold text-gray-300 mb-2'
 					>
 						Date of Birth
 					</label>
@@ -130,22 +133,16 @@ const EditAccount: React.FC<EditAccountProps> = ({ accountId, onClose }) => {
 						type='date'
 						value={formData.dob}
 						onChange={handleChange}
-						className='w-full border px-3 py-2 rounded-lg focus:ring focus:ring-blue-500'
+						className='w-full text-gray-300 border px-3 py-2 rounded-lg focus:ring focus:ring-blue-500'
 					/>
 				</div>
+
 				<div className='flex justify-between'>
 					<button
-						type='button'
-						onClick={onClose}
-						className='px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600'
-					>
-						Cancel
-					</button>
-					<button
 						type='submit'
-						className='px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'
+						className='px-4 py-2 text-white rounded-lg hover:bg-blue-600 inline-flex justify-center items-center cursor-pointer'
 					>
-						Save Changes
+						<FaSave className='w-4 h-4 mr-2' /> Save Changes
 					</button>
 				</div>
 			</form>

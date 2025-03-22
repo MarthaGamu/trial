@@ -91,7 +91,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 				<h2 className='text-4xl pb-4 font-bold'>Account Details</h2>
 
 				<button
-					className='px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer'
+					className='px-5 py-2.5 text-sm font-medium inline-flex items-center text-dark focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer'
 					onClick={() => setShowAddAccount(true)}
 				>
 					<FaPlus className='w-4 h-4 mr-2' />

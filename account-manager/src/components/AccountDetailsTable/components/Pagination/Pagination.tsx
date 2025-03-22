@@ -27,8 +27,8 @@ const Pagination: React.FC<PaginationProps> = ({
 				disabled={currentPage === 1}
 				className={`px-4 py-2 rounded inline-flex items-center ${
 					currentPage === 1
-						? 'bg-gray-300 text-gray-800 cursor-not-allowed'
-						: 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'
+						? 'text-gray-500 cursor-not-allowed'
+						: 'text-blue-500 hover:text-blue-600 cursor-pointer'
 				}`}
 			>
 				<FaArrowLeft className='w-4 h-4 mr-2' /> {/* Previous icon */}
@@ -44,8 +44,8 @@ const Pagination: React.FC<PaginationProps> = ({
 				disabled={currentPage === totalPages}
 				className={`px-4 py-2 rounded inline-flex items-center ${
 					currentPage === totalPages
-						? 'bg-gray-300 text-gray-700 cursor-not-allowed'
-						: 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'
+						? 'text-gray-500 cursor-not-allowed'
+						: 'text-blue-500 hover:text-blue-600 cursor-pointer'
 				}`}
 			>
 				<span>Next</span>

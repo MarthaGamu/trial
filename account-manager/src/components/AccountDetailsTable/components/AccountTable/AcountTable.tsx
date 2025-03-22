@@ -69,10 +69,10 @@ const AccountTable: React.FC<AccountTableProps> = ({
 
 								<td className='border border-gray-300 px-4 py-2 text-black'>
 									<button
-										className={`px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center ${
+										className={`px-5 py-2.5 text-sm font-medium inline-flex items-center focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center ${
 											account.editMode === false
-												? 'bg-gray-400 cursor-not-allowed'
-												: 'cursor-pointer hover:bg-blue-600'
+												? 'text-gray-400 cursor-not-allowed'
+												: 'cursor-pointer text-blue-500 hover:text-blue-600'
 										}`}
 										onClick={() => onEdit(account.id)}
 										disabled={account.editMode === false}
@@ -84,10 +84,10 @@ const AccountTable: React.FC<AccountTableProps> = ({
 
 								<td className='border border-gray-300 px-4 py-2 text-black'>
 									<button
-										className={`px-5 py-2.5 text-sm font-medium text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-center ${
+										className={`px-5 py-2.5 text-sm font-medium inline-flex items-center focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-center ${
 											account.editMode === false
-												? 'bg-gray-400 cursor-not-allowed'
-												: 'cursor-pointer bg-red-500 hover:bg-red-600'
+												? 'text-gray-400 cursor-not-allowed'
+												: 'cursor-pointer text-red-500 hover:text-red-600'
 										}`}
 										onClick={() => onDelete(account.id)}
 										disabled={account.editMode === false}

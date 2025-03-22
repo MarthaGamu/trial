@@ -21,18 +21,17 @@ const FilterDropdown: React.FC<{
 			<button
 				id='dropdownRadioButton'
 				onClick={toggleDropdown}
-				className='inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700'
+				className='inline-flex items-center text-dark border focus:outline-none focus:ring-4  font-medium rounded-lg text-sm px-3 py-1.5  border-gray-800 focus:ring-gray-700'
 				type='button'
 			>
-				<FaFilter className='w-4 h-4 text-gray-500 dark:text-gray-400 mr-2' />{' '}
-				{/* Filter icon */}
+				<FaFilter className='w-4 h-4 text-dark mr-2' />
 				{selectedFilter}
-				<FaChevronDown className='w-3 h-3 ml-2' /> {/* Dropdown arrow */}
+				<FaChevronDown className='w-3 h-3 ml-2' />
 			</button>
 
 			{/* Dropdown menu */}
 			{isOpen && (
-				<div className='z-10 absolute w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600 mt-2'>
+				<div className='z-10 absolute w-48 divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600 mt-2'>
 					<ul className='p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200'>
 						{['Youngest', 'Oldest'].map((filter) => (
 							<li key={filter}>
