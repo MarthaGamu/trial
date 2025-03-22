@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 
 const AddAccount = () => {
 	const [formData, setFormData] = useState({

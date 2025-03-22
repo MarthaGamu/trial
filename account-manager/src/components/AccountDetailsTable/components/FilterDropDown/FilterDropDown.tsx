@@ -50,7 +50,7 @@ const FilterDropdown: React.FC = () => {
 			{isOpen && (
 				<div className='z-10 absolute w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600 mt-2'>
 					<ul className='p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200'>
-						{['First Name', 'Last Name', 'Date of Birth'].map((filter) => (
+						{['Youngest', 'Oldest'].map((filter) => (
 							<li key={filter}>
 								<div
 									className='flex items-center p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer'
