@@ -1,0 +1,11 @@
+import React from 'react';
+
+const Footer = () => {
+	return (
+		<footer className='bg-gray-800 text-white text-center py-4'>
+			<p className='text-sm'>&copy; Martha Mandizvidza, Interview 2025</p>
+		</footer>
+	);
+};
+
+export default Footer;

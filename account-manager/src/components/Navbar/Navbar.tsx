@@ -1,8 +1,8 @@
-//import { AiOutlineUser } from 'react-icons/ai'; // Import an account-related icon
+import React from 'react';
 
 const Navbar = () => {
 	return (
-		<div className='bg-slate-900 text-white'>
+		<div className='bg-gray-800 text-white'>
 			<div className='container mx-auto px-4'>
 				<div className='py-4'>
 					<nav className='flex items-center justify-center'>
@@ -19,9 +19,4 @@ const Navbar = () => {
 	);
 };
 
-{
-	/* <span className='text-2xl pl-10 border-l-2 border-white'>
-	<AiOutlineUser /> 
-</span>; */
-}
 export default Navbar;

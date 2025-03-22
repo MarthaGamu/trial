@@ -4,7 +4,7 @@ import accountStore from '../../stores/AccountStore';
 import FilterDropdown from './components/FilterDropDown';
 import Search from './components/Search';
 import Pagination from './components/Pagination';
-import AddAccount from '../AddAccount';
+import AddAccount from './components/AddAccount';
 import EditAccount from './components/EditAccount';
 import axios from 'axios';
 import DeleteNotication from './components/DeleteNotification';
@@ -63,7 +63,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 	};
 
 	return (
-		<div className='p-4 bg-white text-black rounded-lg shadow-lg'>
+		<main className='p-4 bg-white text-black rounded-lg shadow-lg'>
 			<div className='flex items-center justify-between mb-4 space-x-4'>
 				<h2 className='text-4xl pb-4 font-bold'>Account Details</h2>
 				<button
@@ -187,7 +187,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 					</div>
 				</div>
 			)}
-		</div>
+		</main>
 	);
 });
 
