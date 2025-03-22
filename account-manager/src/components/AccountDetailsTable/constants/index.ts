@@ -5,3 +5,5 @@ export const accountsTableColumns = [
         { label: 'DOB', accessor: 'dob' },
         { label: 'Actions', accessor: 'actions' }
     ];
+
+export const rowsPerPage = 5;

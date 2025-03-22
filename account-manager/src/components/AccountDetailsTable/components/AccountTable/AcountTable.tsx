@@ -64,16 +64,26 @@ const AccountTable: React.FC<AccountTableProps> = ({
 							))}
 							<td className='border border-gray-300 px-4 py-2 text-black'>
 								<button
-									className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+									className={`px-4 py-2 rounded text-white ${
+										account.editMode === false
+											? 'bg-gray-400 cursor-not-allowed'
+											: 'bg-blue-500 hover:bg-blue-600 cursor-pointer'
+									} `}
 									onClick={() => onEdit(account.id)}
+									disabled={account.editMode === false}
 								>
 									Edit
 								</button>
 							</td>
 							<td className='border border-gray-300 px-4 py-2 text-black'>
 								<button
-									className='px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
+									className={`px-4 py-2 rounded text-white ${
+										account.editMode === false
+											? 'bg-gray-400 cursor-not-allowed'
+											: 'bg-red-500 hover:bg-red-600 cursor-pointer'
+									} `}
 									onClick={() => onDelete(account.id)}
+									disabled={account.editMode === false}
 								>
 									Delete
 								</button>

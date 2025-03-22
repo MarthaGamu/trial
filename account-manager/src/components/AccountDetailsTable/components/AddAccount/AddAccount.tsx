@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const AddAccount = () => {
-	const [formData, setFormData] = useState({
+	const intialFormData = {
 		firstName: '',
 		lastName: '',
 		title: '',
-		dob: ''
-	});
-	//const [submit, setSubmit] = useState(false);
+		dob: '',
+		editMode: true
+	};
+	const [formData, setFormData] = useState(intialFormData);
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => {
@@ -43,7 +44,7 @@ const AddAccount = () => {
 		}
 
 		// Reset the form after submission
-		setFormData({ firstName: '', lastName: '', title: '', dob: '' });
+		setFormData(intialFormData);
 	};
 
 	return (

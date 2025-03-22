@@ -10,7 +10,7 @@ import axios from 'axios';
 import useFuseSearch from '../../hooks/useFuseSearch';
 import AccountTable from './components/AccountTable';
 import Modal from './components/Modal';
-import { accountsTableColumns } from './constants';
+import { accountsTableColumns, rowsPerPage } from './constants';
 
 const AccountDetailsTable: React.FC = observer(() => {
 	const { accounts, loading, error, fetchAccounts } = accountStore;
@@ -60,7 +60,6 @@ const AccountDetailsTable: React.FC = observer(() => {
 
 	const sortedAccounts = applyFilter(filteredAccounts, selectedFilter);
 
-	const rowsPerPage = 10;
 	const [currentPage, setCurrentPage] = useState(1);
 	const totalPages = Math.ceil(sortedAccounts.length / rowsPerPage);
 
@@ -90,7 +89,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 			<div className='flex items-center justify-between mb-4 space-x-4'>
 				<h2 className='text-4xl pb-4 font-bold'>Account Details</h2>
 				<button
-					className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+					className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer'
 					onClick={() => setShowAddAccount(true)}
 				>
 					Add Account
