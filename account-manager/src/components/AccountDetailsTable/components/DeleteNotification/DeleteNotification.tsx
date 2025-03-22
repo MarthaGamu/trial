@@ -29,13 +29,13 @@ const DeleteNotification = ({ handleCancelDelete, onClose }) => {
 
 			{/* Close Button */}
 			<button
-				className='text-white hover:bg-red-600 px-2 py-1 rounded-md focus:outline-none'
+				className='text-white hover:bg-red-600 px-2 py-1 rounded-md focus:outline-none cursor-pointer'
 				onClick={onClose}
 			>
 				Proceed
 			</button>
 			<button
-				className='text-white hover:bg-red-600 px-2 py-1 rounded-md focus:outline-none'
+				className='text-white hover:bg-red-600 px-2 py-1 rounded-md focus:outline-none cursor-pointer'
 				onClick={handleCancelDelete}
 			>
 				Cancel

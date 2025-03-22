@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { Account } from '../../../../stores/AccountStore';
 import Pagination from '../Pagination';
 
@@ -30,68 +31,76 @@ const AccountTable: React.FC<AccountTableProps> = ({
 
 	return (
 		<>
-			<table className='table-auto w-full border border-gray-300'>
-				<thead>
-					<tr>
-						{columns.slice(0, -1).map((column) => (
+			<div className='overflow-x-auto'>
+				{' '}
+				{/* Added this div to make the table scrollable */}
+				<table className='table-auto w-full border border-gray-300'>
+					<thead>
+						<tr>
+							{columns.slice(0, -1).map((column) => (
+								<th
+									key={column.label}
+									className='border border-gray-300 px-4 py-2 text-left text-black font-bold'
+								>
+									{column.label}
+								</th>
+							))}
 							<th
-								key={column.label}
+								colSpan={2}
 								className='border border-gray-300 px-4 py-2 text-left text-black font-bold'
 							>
-								{column.label}
+								{columns[columns.length - 1].label}
 							</th>
-						))}
-						<th
-							colSpan={2}
-							className='border border-gray-300 px-4 py-2 text-left text-black font-bold'
-						>
-							{columns[columns.length - 1].label}
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{paginatedAccounts.map((account: Account) => (
-						<tr key={account.id}>
-							{columns.slice(0, -1).map((column) => (
-								<td
-									key={column.label}
-									className='border border-gray-300 px-4 py-2 text-black'
-								>
-									{column.accessor === 'dob'
-										? new Date(account.dob).toLocaleDateString()
-										: account[column.accessor]}
-								</td>
-							))}
-							<td className='border border-gray-300 px-4 py-2 text-black'>
-								<button
-									className={`px-4 py-2 rounded text-white ${
-										account.editMode === false
-											? 'bg-gray-400 cursor-not-allowed'
-											: 'bg-blue-500 hover:bg-blue-600 cursor-pointer'
-									} `}
-									onClick={() => onEdit(account.id)}
-									disabled={account.editMode === false}
-								>
-									Edit
-								</button>
-							</td>
-							<td className='border border-gray-300 px-4 py-2 text-black'>
-								<button
-									className={`px-4 py-2 rounded text-white ${
-										account.editMode === false
-											? 'bg-gray-400 cursor-not-allowed'
-											: 'bg-red-500 hover:bg-red-600 cursor-pointer'
-									} `}
-									onClick={() => onDelete(account.id)}
-									disabled={account.editMode === false}
-								>
-									Delete
-								</button>
-							</td>
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{paginatedAccounts.map((account: Account) => (
+							<tr key={account.id}>
+								{columns.slice(0, -1).map((column) => (
+									<td
+										key={column.label}
+										className='border border-gray-300 px-4 py-2 text-black'
+									>
+										{column.accessor === 'dob'
+											? new Date(account.dob).toLocaleDateString()
+											: account[column.accessor]}
+									</td>
+								))}
+
+								<td className='border border-gray-300 px-4 py-2 text-black'>
+									<button
+										className={`px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center ${
+											account.editMode === false
+												? 'bg-gray-400 cursor-not-allowed'
+												: 'cursor-pointer hover:bg-blue-600'
+										}`}
+										onClick={() => onEdit(account.id)}
+										disabled={account.editMode === false}
+									>
+										<FaEdit className='w-4 h-4 mr-2' /> {/* Edit icon */}
+										<span>Edit</span> {/* Add text */}
+									</button>
+								</td>
+
+								<td className='border border-gray-300 px-4 py-2 text-black'>
+									<button
+										className={`px-5 py-2.5 text-sm font-medium text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg text-center ${
+											account.editMode === false
+												? 'bg-gray-400 cursor-not-allowed'
+												: 'cursor-pointer bg-red-500 hover:bg-red-600'
+										}`}
+										onClick={() => onDelete(account.id)}
+										disabled={account.editMode === false}
+									>
+										<FaTrashAlt className='w-4 h-4 mr-2' /> {/* Delete icon */}
+										<span>Delete</span> {/* Add text */}
+									</button>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
 
 			<Pagination
 				currentPage={currentPage}

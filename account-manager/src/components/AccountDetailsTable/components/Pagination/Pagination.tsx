@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 interface PaginationProps {
 	currentPage: number;
@@ -24,27 +25,31 @@ const Pagination: React.FC<PaginationProps> = ({
 			<button
 				onClick={handlePrevPage}
 				disabled={currentPage === 1}
-				className={`px-4 py-2 rounded ${
+				className={`px-4 py-2 rounded inline-flex items-center ${
 					currentPage === 1
 						? 'bg-gray-300 text-gray-800 cursor-not-allowed'
 						: 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'
 				}`}
 			>
-				Previous
+				<FaArrowLeft className='w-4 h-4 mr-2' /> {/* Previous icon */}
+				<span>Previous</span> {/* Text */}
 			</button>
+
 			<span>
 				Page {currentPage} of {totalPages}
 			</span>
+
 			<button
 				onClick={handleNextPage}
 				disabled={currentPage === totalPages}
-				className={`px-4 py-2 rounded ${
+				className={`px-4 py-2 rounded inline-flex items-center ${
 					currentPage === totalPages
 						? 'bg-gray-300 text-gray-700 cursor-not-allowed'
 						: 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'
 				}`}
 			>
-				Next
+				<span>Next</span>
+				<FaArrowRight className='w-4 h-4 ml-2' />
 			</button>
 		</div>
 	);

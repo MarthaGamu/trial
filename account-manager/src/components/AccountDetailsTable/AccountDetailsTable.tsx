@@ -11,6 +11,7 @@ import useFuseSearch from '../../hooks/useFuseSearch';
 import AccountTable from './components/AccountTable';
 import Modal from './components/Modal';
 import { accountsTableColumns, rowsPerPage } from './constants';
+import { FaPlus } from 'react-icons/fa';
 
 const AccountDetailsTable: React.FC = observer(() => {
 	const { accounts, loading, error, fetchAccounts } = accountStore;
@@ -88,11 +89,13 @@ const AccountDetailsTable: React.FC = observer(() => {
 		<main className='p-4 bg-white text-black rounded-lg shadow-lg'>
 			<div className='flex items-center justify-between mb-4 space-x-4'>
 				<h2 className='text-4xl pb-4 font-bold'>Account Details</h2>
+
 				<button
-					className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer'
+					className='px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer'
 					onClick={() => setShowAddAccount(true)}
 				>
-					Add Account
+					<FaPlus className='w-4 h-4 mr-2' />
+					<span>Add Account</span>
 				</button>
 			</div>
 
@@ -100,13 +103,13 @@ const AccountDetailsTable: React.FC = observer(() => {
 			{error && <p className='text-red-500'>{error}</p>}
 			{accounts.length === 0 && !loading && !error && <p>No accounts found.</p>}
 
+			<div className='flex items-center justify-between mb-4 space-x-4'>
+				<FilterDropdown onFilterChange={handleFilterChange} />
+				<Search onSearch={(query) => setSearchQuery(query)} />
+			</div>
+
 			{sortedAccounts.length > 0 && !loading && !error && (
 				<>
-					<div className='flex items-center justify-between mb-4 space-x-4'>
-						<FilterDropdown onFilterChange={handleFilterChange} />
-						<Search onSearch={(query) => setSearchQuery(query)} />
-					</div>
-
 					<AccountTable
 						accounts={sortedAccounts}
 						columns={accountsTableColumns}
@@ -118,6 +121,12 @@ const AccountDetailsTable: React.FC = observer(() => {
 						onPageChange={(page) => setCurrentPage(page)}
 					/>
 				</>
+			)}
+
+			{sortedAccounts.length === 0 && (
+				<p className='text-start text-lg font-semibold text-gray-800 mt-4'>
+					No accounts found. Try adjusting your filters or search terms.
+				</p>
 			)}
 
 			{deleteId && (
