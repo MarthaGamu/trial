@@ -9,6 +9,7 @@ export interface Account {
   lastName: string;
   dob: string;
   editMode: boolean;
+  actions?: string;
 }
 
 class AccountStore {

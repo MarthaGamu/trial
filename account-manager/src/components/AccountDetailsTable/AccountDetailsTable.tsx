@@ -10,6 +10,11 @@ import axios from 'axios';
 import DeleteNotication from './components/DeleteNotification';
 import Fuse from 'fuse.js';
 
+interface TableColumn {
+	label: string;
+	accessor: keyof Account; // This will be the key from the Account object
+}
+
 const AccountDetailsTable: React.FC = observer(() => {
 	const { accounts, loading, error, fetchAccounts } = accountStore;
 	const [showAddAccount, setShowAddAccount] = useState(false);
@@ -17,6 +22,15 @@ const AccountDetailsTable: React.FC = observer(() => {
 	const [deleteId, setDeleteId] = useState<string | null>(null);
 	const [searchQuery, setSearchQuery] = useState('');
 	const [selectedFilter, setSelectedFilter] = useState('Date of Birth');
+
+	// Define table columns dynamically
+	const columns: TableColumn[] = [
+		{ label: 'Title', accessor: 'title' },
+		{ label: 'First Name', accessor: 'firstName' },
+		{ label: 'Last Name', accessor: 'lastName' },
+		{ label: 'DOB', accessor: 'dob' },
+		{ label: 'Actions', accessor: 'actions' }
+	];
 
 	useEffect(() => {
 		fetchAccounts();
@@ -134,38 +148,36 @@ const AccountDetailsTable: React.FC = observer(() => {
 					<table className='table-auto w-full border border-gray-300'>
 						<thead>
 							<tr>
-								<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
-									Title
-								</th>
-								<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
-									First Name
-								</th>
-								<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
-									Last Name
-								</th>
-								<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
-									DOB
-								</th>
-								<th className='border border-gray-300 px-4 py-2 text-left text-black font-bold'>
-									Actions
+								{columns.slice(0, -1).map((column) => (
+									<th
+										key={column.label}
+										className='border border-gray-300 px-4 py-2 text-left text-black font-bold'
+									>
+										{column.label}
+									</th>
+								))}
+								<th
+									colSpan={2}
+									className='border border-gray-300 px-4 py-2 text-left text-black font-bold'
+								>
+									{columns[columns.length - 1].label}
 								</th>
 							</tr>
 						</thead>
 						<tbody>
 							{paginatedAccounts.map((account: Account) => (
 								<tr key={account.id}>
-									<td className='border border-gray-300 px-4 py-2 text-black'>
-										{account.title}
-									</td>
-									<td className='border border-gray-300 px-4 py-2 text-black'>
-										{account.firstName}
-									</td>
-									<td className='border border-gray-300 px-4 py-2 text-black'>
-										{account.lastName}
-									</td>
-									<td className='border border-gray-300 px-4 py-2 text-black'>
-										{new Date(account.dob).toLocaleDateString()}
-									</td>
+									{columns.slice(0, -1).map((column) => (
+										<td
+											key={column.label}
+											className='border border-gray-300 px-4 py-2 text-black'
+										>
+											{column.accessor === 'dob'
+												? new Date(account.dob).toLocaleDateString()
+												: account[column.accessor]}
+										</td>
+									))}
+									{/* Separate Action buttons in their own cells */}
 									<td className='border border-gray-300 px-4 py-2 text-black'>
 										<button
 											className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
