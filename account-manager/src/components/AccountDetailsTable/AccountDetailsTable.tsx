@@ -14,6 +14,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 	const [showAddAccount, setShowAddAccount] = useState(false);
 	const [currentAccountId, setCurrentAccountId] = useState<string | null>(null);
 	const [deleteId, setDeleteId] = useState<string | null>(null);
+	const [searchQuery, setSearchQuery] = useState('');
 
 	useEffect(() => {
 		fetchAccounts();
@@ -31,14 +32,23 @@ const AccountDetailsTable: React.FC = observer(() => {
 		setCurrentAccountId(null);
 	};
 
+	// Filter accounts only if the search query exists
+	const filteredAccounts = searchQuery
+		? accounts.filter((account) =>
+				`${account.title} ${account.firstName} ${account.lastName}`
+					.toLowerCase()
+					.includes(searchQuery.toLowerCase())
+		  )
+		: accounts;
+
 	const rowsPerPage = 10; // Number of rows per page
 	const [currentPage, setCurrentPage] = useState(1);
 
-	// Calculate total pages
-	const totalPages = Math.ceil(accounts.length / rowsPerPage);
+	// Calculate total pages based on filtered accounts
+	const totalPages = Math.ceil(filteredAccounts.length / rowsPerPage);
 
 	// Paginated accounts for the current page
-	const paginatedAccounts = accounts.slice(
+	const paginatedAccounts = filteredAccounts.slice(
 		(currentPage - 1) * rowsPerPage,
 		currentPage * rowsPerPage
 	);
@@ -78,11 +88,11 @@ const AccountDetailsTable: React.FC = observer(() => {
 			{error && <p className='text-red-500'>{error}</p>}
 			{!loading && !error && accounts.length === 0 && <p>No accounts found.</p>}
 
-			{!loading && accounts.length > 0 && (
+			{!loading && filteredAccounts.length > 0 && (
 				<>
 					<div className='flex items-center justify-between mb-4 space-x-4'>
 						<FilterDropdown />
-						<Search />
+						<Search onSearch={(query) => setSearchQuery(query)} />
 					</div>
 					<table className='table-auto w-full border border-gray-300'>
 						<thead>

@@ -1,4 +1,6 @@
-export default function Search() {
+import React from 'react';
+
+export default function Search({ onSearch }) {
 	return (
 		<div className='flex items-center border border-gray-300 rounded px-3 py-2'>
 			<svg
@@ -19,7 +21,7 @@ export default function Search() {
 				type='text'
 				placeholder='Search'
 				className='flex-grow outline-none'
-				// Add search logic here
+				onChange={(e) => onSearch(e.target.value)} // Call the onSearch callback
 			/>
 		</div>
 	);
