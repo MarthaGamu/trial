@@ -7,7 +7,7 @@ import AddAccount from './components/AddAccount';
 import EditAccount from './components/EditAccount';
 import DeleteNotication from './components/DeleteNotification';
 import axios from 'axios';
-import useFuseSearch from '../../hooks/useFuseSearch';
+import fuseSearch from '../../helpers/fuseSearch';
 import AccountTable from './components/AccountTable';
 import Modal from './components/Modal';
 import { accountsTableColumns, rowsPerPage } from './constants';
@@ -43,7 +43,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 		includeScore: true
 	};
 
-	const filteredAccounts = useFuseSearch(accounts, fuseOptions, searchQuery);
+	const filteredAccounts = fuseSearch(accounts, fuseOptions, searchQuery);
 
 	const applyFilter = (accounts: Account[], filter: string) => {
 		const accountsCopy = accounts.slice();
