@@ -14,7 +14,7 @@ import { accountsTableColumns, rowsPerPage } from './constants';
 import { FaPlus } from 'react-icons/fa';
 
 const AccountDetailsTable: React.FC = observer(() => {
-	const { accounts, loading, error, fetchAccounts } = accountStore;
+	const { accounts, loading, error } = accountStore;
 	const [showAddAccount, setShowAddAccount] = useState(false);
 	const [currentAccountId, setCurrentAccountId] = useState<string | null>(null);
 	const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -22,8 +22,8 @@ const AccountDetailsTable: React.FC = observer(() => {
 	const [selectedFilter, setSelectedFilter] = useState('Date of Birth');
 
 	useEffect(() => {
-		fetchAccounts();
-	}, [fetchAccounts]);
+		accountStore.fetchAccounts();
+	}, []);
 
 	const handleEdit = (id: string) => {
 		setCurrentAccountId(id);
