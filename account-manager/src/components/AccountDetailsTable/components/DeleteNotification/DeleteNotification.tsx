@@ -1,9 +1,16 @@
-import React from 'react';
 import { MdErrorOutline } from 'react-icons/md'; // For the warning icon
 import { FaTrashAlt } from 'react-icons/fa'; // For the "Proceed" button icon
 import { IoClose } from 'react-icons/io5'; // For the "Cancel" button icon
 
-const DeleteNotification = ({ handleCancelDelete, onClose }) => {
+interface DeleteNotificationProps {
+	handleCancelDelete: () => void;
+	onClose: () => void;
+}
+
+const DeleteNotification = ({
+	handleCancelDelete,
+	onClose
+}: DeleteNotificationProps) => {
 	return (
 		<div
 			id='alert-additional-content-2'

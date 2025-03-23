@@ -74,7 +74,7 @@ const AccountTable: React.FC<AccountTableProps> = ({
 												? 'text-gray-400 cursor-not-allowed'
 												: 'cursor-pointer text-blue-500 hover:text-blue-600'
 										}`}
-										onClick={() => onEdit(account.id)}
+										onClick={() => account.id && onEdit(account.id)}
 										disabled={account.editMode === false}
 									>
 										<FaEdit className='w-4 h-4 mr-2' /> {/* Edit icon */}
@@ -89,7 +89,7 @@ const AccountTable: React.FC<AccountTableProps> = ({
 												? 'text-gray-400 cursor-not-allowed'
 												: 'cursor-pointer text-red-500 hover:text-red-600'
 										}`}
-										onClick={() => onDelete(account.id)}
+										onClick={() => account.id && onDelete(account.id)}
 										disabled={account.editMode === false}
 									>
 										<FaTrashAlt className='w-4 h-4 mr-2' /> {/* Delete icon */}

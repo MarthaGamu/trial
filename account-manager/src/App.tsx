@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 import AccountDetailsTable from './components/AccountDetailsTable/AccountDetailsTable';
 import Footer from './components/Footer';

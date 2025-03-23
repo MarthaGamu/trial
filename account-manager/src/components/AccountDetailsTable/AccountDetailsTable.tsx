@@ -121,7 +121,11 @@ const AccountDetailsTable: React.FC = observer(() => {
 				{!error && (
 					<div className='flex items-center justify-between mb-4 space-x-4'>
 						<FilterDropdown onFilterChange={handleFilterChange} />
-						<Search onSearch={(query) => setSearchQuery(query)} />
+						<Search
+							onSearch={(query: React.SetStateAction<string>) =>
+								setSearchQuery(query)
+							}
+						/>
 					</div>
 				)}
 
@@ -141,7 +145,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 
 				{/* If no accounts found */}
 				{sortedAccounts.length === 0 && !error && (
-					<p className='text-start text-lg font-semibold text-gray-800 mt-4'>
+					<p className='text-start text-lg font-semibold text-gray-800 py-4'>
 						No accounts found. Try adjusting your filters or search terms.
 					</p>
 				)}

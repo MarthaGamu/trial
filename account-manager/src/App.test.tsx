@@ -4,7 +4,6 @@ import App from './App';
 
 // Mock the accountStore to simulate loading and error states
 import accountStore from './stores/AccountStore'; // Import the module here to mock it
-import React from 'react';
 vi.mock('./stores/AccountStore', () => ({
 	default: {
 		loading: false,

@@ -30,10 +30,7 @@ const AddAccount = () => {
 		} catch (error) {
 			toast.error('Error submitting form data!'); // Show an error toast
 			// Log the error to understand what's happening
-			console.error(
-				'Error submitting form data:',
-				error.response || error.message
-			);
+			console.error('Error submitting form data:', error);
 		}
 
 		// Reset the form after submission

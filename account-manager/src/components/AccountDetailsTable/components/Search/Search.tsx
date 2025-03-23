@@ -1,6 +1,8 @@
-import React from 'react';
+interface SearchProps {
+	onSearch: (value: string) => void;
+}
 
-export default function Search({ onSearch }) {
+export default function Search({ onSearch }: SearchProps) {
 	return (
 		<div className='flex items-center border border-gray-300 rounded px-3 py-2'>
 			{/* Accessible Label */}
@@ -26,7 +28,7 @@ export default function Search({ onSearch }) {
 				type='text'
 				placeholder='Search'
 				className='flex-grow outline-none'
-				onChange={(e) => onSearch(e.target.value)} // Call the onSearch callback
+				onChange={(e) => onSearch(e.target.value)}
 			/>
 		</div>
 	);
