@@ -108,7 +108,17 @@ const AccountDetailsTable: React.FC = observer(() => {
 
 				{/* Conditional rendering for loading, error, or empty state */}
 				{loading && <p>Loading...</p>}
-				{error && <p className='text-red-500'>{error}</p>}
+				{error && (
+					<>
+						<p className='text-red-500 py-8'> {error}</p>
+						<p className='text-lg'>
+							You can email administrator for support:{' '}
+							<span className='font-semibold'>
+								martha.mandizvidza@gmail.com
+							</span>
+						</p>
+					</>
+				)}
 				{accounts.length === 0 && !loading && !error && (
 					<p>No accounts found.</p>
 				)}
