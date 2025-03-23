@@ -34,6 +34,8 @@ class AccountStore {
       // Binding computed properties
       totalAccounts: computed,
       isLoading: computed,
+      numberOfDisabledAccounts: computed,
+      numberOfActiveAccounts: computed,
     });
   }
 
@@ -133,6 +135,16 @@ class AccountStore {
   get isLoading(): boolean {
     return this.loading; // Returns the current loading state
   }
+
+  get numberOfActiveAccounts(): number {
+    return this.accounts.filter((acc) => acc.editMode).length; // Returns the number of accounts in edit mode
+  }
+
+  get numberOfDisabledAccounts(): number {
+    return this.accounts.filter((acc) => !acc.editMode).length; // Returns the number of accounts not
+  }
+
+  
 }
 
 const accountStore = new AccountStore();

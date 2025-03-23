@@ -27,7 +27,7 @@ const FilterDropdown: React.FC<{
 				<FaFilter className='w-4 h-4 text-dark mr-2' />
 				<span className='hidden sm:inline'>Date of Birth</span>
 				<span className='inline sm:hidden'>DOB</span>
-				<FaChevronDown className='w-3 h-3 ml-2' />
+				<FaChevronDown className='ml-2' />
 			</button>
 
 			{/* Dropdown menu */}

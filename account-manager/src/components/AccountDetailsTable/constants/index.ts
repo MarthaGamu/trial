@@ -11,4 +11,4 @@ export const accountsTableColumns: { label: string; accessor: keyof Account }[] 
     { label: 'Actions', accessor: 'actions' }
 ];
 
-export const rowsPerPage = 5;
+export const rowsPerPage = 4;

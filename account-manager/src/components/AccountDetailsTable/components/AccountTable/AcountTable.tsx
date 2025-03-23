@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { FaRegEdit, FaTrashAlt } from 'react-icons/fa';
 import { Account } from '../../../../stores/AccountStore';
 import Pagination from '../Pagination';
 
@@ -77,7 +77,7 @@ const AccountTable: React.FC<AccountTableProps> = ({
 										onClick={() => account.id && onEdit(account.id)}
 										disabled={account.editMode === false}
 									>
-										<FaEdit className='w-4 h-4 mr-2' /> {/* Edit icon */}
+										<FaRegEdit className='w-4 h-4 mr-2' />
 										<span>Edit</span> {/* Add text */}
 									</button>
 								</td>

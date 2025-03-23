@@ -19,7 +19,7 @@ const Modal: React.FC<ModalProps> = ({
 	return (
 		<div className='fixed inset-0 flex items-center justify-center backdrop-blur-sm  z-50'>
 			<div
-				className={`bg-[#151515] rounded-lg p-6 shadow-lgd w-full max-w-3xl ${className}`}
+				className={`bg-[#323451] rounded-lg p-6 shadow-lgd w-full max-w-3xl ${className}`}
 			>
 				<div className='flex justify-end'>
 					<button

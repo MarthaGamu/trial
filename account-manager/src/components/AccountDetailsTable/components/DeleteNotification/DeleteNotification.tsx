@@ -14,7 +14,7 @@ const DeleteNotification = ({
 	return (
 		<div
 			id='alert-additional-content-2'
-			className='p-4 mb-12 text-red-800 border border-red-300 rounded-lg dark:text-red-400 dark:border-red-800'
+			className='p-4 mb-3 text-red-800 border border-red-300 rounded-lg dark:text-red-400 dark:border-red-800'
 			role='alert'
 		>
 			{/* Title with Icon */}
@@ -24,7 +24,7 @@ const DeleteNotification = ({
 			</div>
 
 			{/* Message */}
-			<div className='mt-2 mb-4 text-sm'>
+			<div className='mt-2 mb-4 font-light '>
 				You are about to permanently delete this account. This action cannot be
 				undone, and all associated data will be removed from the system. Please
 				confirm your decision carefully before proceeding.
