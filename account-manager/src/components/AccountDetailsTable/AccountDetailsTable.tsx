@@ -99,36 +99,39 @@ const AccountDetailsTable: React.FC = observer(() => {
 				</button>
 			</div>
 
+			{/* Conditional rendering for loading, error, or empty state */}
 			{loading && <p>Loading...</p>}
 			{error && <p className='text-red-500'>{error}</p>}
 			{accounts.length === 0 && !loading && !error && <p>No accounts found.</p>}
 
+			{/* Filters and Search */}
 			<div className='flex items-center justify-between mb-4 space-x-4'>
 				<FilterDropdown onFilterChange={handleFilterChange} />
 				<Search onSearch={(query) => setSearchQuery(query)} />
 			</div>
 
+			{/* Account Table */}
 			{sortedAccounts.length > 0 && !loading && !error && (
-				<>
-					<AccountTable
-						accounts={sortedAccounts}
-						columns={accountsTableColumns}
-						onEdit={handleEdit}
-						onDelete={setDeleteId}
-						rowsPerPage={rowsPerPage}
-						currentPage={currentPage}
-						totalPages={totalPages}
-						onPageChange={(page) => setCurrentPage(page)}
-					/>
-				</>
+				<AccountTable
+					accounts={sortedAccounts}
+					columns={accountsTableColumns}
+					onEdit={handleEdit}
+					onDelete={setDeleteId}
+					rowsPerPage={rowsPerPage}
+					currentPage={currentPage}
+					totalPages={totalPages}
+					onPageChange={(page) => setCurrentPage(page)}
+				/>
 			)}
 
+			{/* If no accounts found */}
 			{sortedAccounts.length === 0 && (
 				<p className='text-start text-lg font-semibold text-gray-800 mt-4'>
 					No accounts found. Try adjusting your filters or search terms.
 				</p>
 			)}
 
+			{/* Deletion Confirmation */}
 			{deleteId && (
 				<DeleteNotication
 					onClose={() => handleDelete(deleteId)}
