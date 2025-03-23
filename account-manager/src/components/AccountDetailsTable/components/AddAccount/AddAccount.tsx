@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FaPaperPlane } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const AddAccount = () => {
 	const intialFormData = {
@@ -34,9 +35,12 @@ const AddAccount = () => {
 				}
 			);
 
+			toast.success('Form data submitted successfully!'); // Show a success toast
+
 			// Log the response to verify success
 			console.log('Form data submitted successfully:', response.data);
 		} catch (error) {
+			toast.error('Error submitting form data!'); // Show an error toast
 			// Log the error to understand what's happening
 			console.error(
 				'Error submitting form data:',
@@ -49,7 +53,7 @@ const AddAccount = () => {
 	};
 
 	return (
-		<div className='container mx-auto p-4 max-w-md rounded-lg shadow-lg'>
+		<div className='rounded-lg shadow-lg'>
 			<form onSubmit={handleSubmit}>
 				{/* Title Dropdown */}
 				<div className='mb-4'>

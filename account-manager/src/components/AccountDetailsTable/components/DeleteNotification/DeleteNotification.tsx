@@ -1,45 +1,47 @@
 import React from 'react';
+import { MdErrorOutline } from 'react-icons/md'; // For the warning icon
+import { FaTrashAlt } from 'react-icons/fa'; // For the "Proceed" button icon
+import { IoClose } from 'react-icons/io5'; // For the "Cancel" button icon
 
 const DeleteNotification = ({ handleCancelDelete, onClose }) => {
 	return (
-		<div className='fixed top-4 right-4 bg-red-500 text-white px-4 py-3 rounded-md shadow-lg flex items-center space-x-4'>
-			{/* Icon */}
-			{/* <span className='text-2xl'>
-				<svg
-					xmlns='http://www.w3.org/2000/svg'
-					fill='none'
-					viewBox='0 0 24 24'
-					strokeWidth='2'
-					stroke='currentColor'
-					className='w-6 h-6'
-				>
-					<path
-						strokeLinecap='round'
-						strokeLinejoin='round'
-						d='M6 18L18 6M6 6l12 12'
-					/>
-				</svg>
-			</span> */}
+		<div
+			id='alert-additional-content-2'
+			className='p-4 mb-12 text-red-800 border border-red-300 rounded-lg dark:text-red-400 dark:border-red-800'
+			role='alert'
+		>
+			{/* Title with Icon */}
+			<div className='flex items-center'>
+				<MdErrorOutline className='shrink-0 w-5 h-5 me-2' aria-hidden='true' />
+				<h3 className='text-lg font-medium'>Account Deletion Warning</h3>
+			</div>
 
 			{/* Message */}
-			<p className='text-sm font-semibold'>
-				By clicking 'Delete', the account details will be permanently removed
-				from the database.
-			</p>
+			<div className='mt-2 mb-4 text-sm'>
+				You are about to permanently delete this account. This action cannot be
+				undone, and all associated data will be removed from the system. Please
+				confirm your decision carefully before proceeding.
+			</div>
 
-			{/* Close Button */}
-			<button
-				className='text-white hover:bg-red-600 px-2 py-1 rounded-md focus:outline-none cursor-pointer'
-				onClick={onClose}
-			>
-				Proceed
-			</button>
-			<button
-				className='text-white hover:bg-red-600 px-2 py-1 rounded-md focus:outline-none cursor-pointer'
-				onClick={handleCancelDelete}
-			>
-				Cancel
-			</button>
+			{/* Action Buttons */}
+			<div className='flex gap-3'>
+				<button
+					type='button'
+					onClick={onClose}
+					className='text-white cursor-pointer bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'
+				>
+					<FaTrashAlt className='me-2 w-3 h-3' aria-hidden='true' />
+					Proceed
+				</button>
+				<button
+					type='button'
+					onClick={handleCancelDelete}
+					className='text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center inline-flex items-center dark:hover:bg-red-600 dark:border-red-600 dark:text-red-500 cursor-pointer dark:hover:text-white dark:focus:ring-red-800'
+				>
+					<IoClose className='me-2 w-4 h-4' aria-hidden='true' />
+					Cancel
+				</button>
+			</div>
 		</div>
 	);
 };

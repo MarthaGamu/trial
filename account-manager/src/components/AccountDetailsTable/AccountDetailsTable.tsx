@@ -86,71 +86,73 @@ const AccountDetailsTable: React.FC = observer(() => {
 	};
 
 	return (
-		<main className='p-4 bg-white text-black rounded-lg shadow-lg'>
-			<div className='flex items-center justify-between mb-4 space-x-4'>
-				<h2 className='text-4xl pb-4 font-bold'>Account Details</h2>
-
-				<button
-					className='px-5 py-2.5 text-sm font-medium inline-flex items-center text-dark focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer'
-					onClick={() => setShowAddAccount(true)}
-				>
-					<FaPlus className='w-4 h-4 mr-2' />
-					<span>Add Account</span>
-				</button>
-			</div>
-
-			{/* Conditional rendering for loading, error, or empty state */}
-			{loading && <p>Loading...</p>}
-			{error && <p className='text-red-500'>{error}</p>}
-			{accounts.length === 0 && !loading && !error && <p>No accounts found.</p>}
-
-			{/* Filters and Search */}
-			<div className='flex items-center justify-between mb-4 space-x-4'>
-				<FilterDropdown onFilterChange={handleFilterChange} />
-				<Search onSearch={(query) => setSearchQuery(query)} />
-			</div>
-
-			{/* Account Table */}
-			{sortedAccounts.length > 0 && !loading && !error && (
-				<AccountTable
-					accounts={sortedAccounts}
-					columns={accountsTableColumns}
-					onEdit={handleEdit}
-					onDelete={setDeleteId}
-					rowsPerPage={rowsPerPage}
-					currentPage={currentPage}
-					totalPages={totalPages}
-					onPageChange={(page) => setCurrentPage(page)}
-				/>
-			)}
-
-			{/* If no accounts found */}
-			{sortedAccounts.length === 0 && (
-				<p className='text-start text-lg font-semibold text-gray-800 mt-4'>
-					No accounts found. Try adjusting your filters or search terms.
-				</p>
-			)}
-
-			{/* Deletion Confirmation */}
+		<>
 			{deleteId && (
 				<DeleteNotication
 					onClose={() => handleDelete(deleteId)}
 					handleCancelDelete={handleCancelDelete}
 				/>
 			)}
+			<main className='p-4 bg-white text-black rounded-lg shadow-lg'>
+				<div className='flex items-center justify-between mb-4 space-x-4'>
+					<h2 className='text-4xl pb-4 font-bold'>Account Details</h2>
 
-			{/* Modal for AddAccount */}
-			<Modal isOpen={showAddAccount} onClose={closeAddView}>
-				<AddAccount />
-			</Modal>
+					<button
+						className='px-5 py-2.5 text-sm font-medium inline-flex items-center text-dark focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer'
+						onClick={() => setShowAddAccount(true)}
+					>
+						<FaPlus className='w-4 h-4 mr-2' />
+						<span>Add Account</span>
+					</button>
+				</div>
 
-			{/* Modal for EditAccount */}
-			{currentAccountId && (
-				<Modal isOpen={!!currentAccountId} onClose={closeEditView}>
-					<EditAccount accountId={currentAccountId} onClose={closeEditView} />
+				{/* Conditional rendering for loading, error, or empty state */}
+				{loading && <p>Loading...</p>}
+				{error && <p className='text-red-500'>{error}</p>}
+				{accounts.length === 0 && !loading && !error && (
+					<p>No accounts found.</p>
+				)}
+
+				{/* Filters and Search */}
+				<div className='flex items-center justify-between mb-4 space-x-4'>
+					<FilterDropdown onFilterChange={handleFilterChange} />
+					<Search onSearch={(query) => setSearchQuery(query)} />
+				</div>
+
+				{/* Account Table */}
+				{sortedAccounts.length > 0 && !loading && !error && (
+					<AccountTable
+						accounts={sortedAccounts}
+						columns={accountsTableColumns}
+						onEdit={handleEdit}
+						onDelete={setDeleteId}
+						rowsPerPage={rowsPerPage}
+						currentPage={currentPage}
+						totalPages={totalPages}
+						onPageChange={(page) => setCurrentPage(page)}
+					/>
+				)}
+
+				{/* If no accounts found */}
+				{sortedAccounts.length === 0 && (
+					<p className='text-start text-lg font-semibold text-gray-800 mt-4'>
+						No accounts found. Try adjusting your filters or search terms.
+					</p>
+				)}
+
+				{/* Modal for AddAccount */}
+				<Modal isOpen={showAddAccount} onClose={closeAddView}>
+					<AddAccount />
 				</Modal>
-			)}
-		</main>
+
+				{/* Modal for EditAccount */}
+				{currentAccountId && (
+					<Modal isOpen={!!currentAccountId} onClose={closeEditView}>
+						<EditAccount accountId={currentAccountId} onClose={closeEditView} />
+					</Modal>
+				)}
+			</main>
+		</>
 	);
 });
 

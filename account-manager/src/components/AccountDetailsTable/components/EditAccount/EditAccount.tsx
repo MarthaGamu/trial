@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaTimes, FaSave } from 'react-icons/fa';
+import { FaSave } from 'react-icons/fa';
 import accountStore, { Account } from '../../../../stores/AccountStore';
+import { toast } from 'react-toastify';
 
 interface EditAccountProps {
 	accountId: string;
@@ -51,10 +52,12 @@ const EditAccount: React.FC<EditAccountProps> = ({ accountId, onClose }) => {
 				accountStore.accounts = accountStore.accounts.map((acc) =>
 					acc.id === accountId ? { ...response.data } : acc
 				);
+				toast.success('Form data edited successfully!');
 				onClose(); // Close the Edit view after successful submission
 			}
 		} catch (error) {
 			console.error('Error updating account:', error);
+			toast.error('Form data editing failed!');
 		}
 	};
 
