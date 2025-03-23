@@ -95,7 +95,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 			)}
 			<main className='p-4 bg-white text-black rounded-lg shadow-lg'>
 				<div className='flex items-center justify-between mb-4 space-x-4'>
-					<h2 className='text-4xl pb-4 font-bold'>Account Details</h2>
+					<h1 className='text-4xl pb-4 font-bold'>Account Details</h1>
 
 					<button
 						className='px-5 py-2.5 text-sm font-medium inline-flex items-center text-dark focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer'
@@ -114,10 +114,12 @@ const AccountDetailsTable: React.FC = observer(() => {
 				)}
 
 				{/* Filters and Search */}
-				<div className='flex items-center justify-between mb-4 space-x-4'>
-					<FilterDropdown onFilterChange={handleFilterChange} />
-					<Search onSearch={(query) => setSearchQuery(query)} />
-				</div>
+				{!error && (
+					<div className='flex items-center justify-between mb-4 space-x-4'>
+						<FilterDropdown onFilterChange={handleFilterChange} />
+						<Search onSearch={(query) => setSearchQuery(query)} />
+					</div>
+				)}
 
 				{/* Account Table */}
 				{sortedAccounts.length > 0 && !loading && !error && (
@@ -134,7 +136,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 				)}
 
 				{/* If no accounts found */}
-				{sortedAccounts.length === 0 && (
+				{sortedAccounts.length === 0 && !error && (
 					<p className='text-start text-lg font-semibold text-gray-800 mt-4'>
 						No accounts found. Try adjusting your filters or search terms.
 					</p>
