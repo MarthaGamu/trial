@@ -6,11 +6,10 @@ import Search from './components/Search';
 import AddAccount from './components/AddAccount';
 import EditAccount from './components/EditAccount';
 import DeleteNotication from './components/DeleteNotification';
-import axios from 'axios';
 import fuseSearch from '../../helpers/fuseSearch';
 import AccountTable from './components/AccountTable';
 import Modal from './components/Modal';
-import { accountsTableColumns, rowsPerPage } from './constants';
+import { accountsTableColumns, adminEmail, rowsPerPage } from './constants';
 import { FaPlus } from 'react-icons/fa';
 
 const AccountDetailsTable: React.FC = observer(() => {
@@ -66,10 +65,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 
 	const handleDelete = async (id: string) => {
 		try {
-			await axios.delete(`http://localhost:8089/api/accounts/${id}`);
-			accountStore.accounts = accountStore.accounts.filter(
-				(account) => account.id !== id
-			);
+			await accountStore.deleteAccount(id);
 			setDeleteId(null);
 			console.log('Account deleted successfully');
 		} catch (error) {
@@ -113,9 +109,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 						<p className='text-red-500 py-8'> {error}</p>
 						<p className='text-lg'>
 							You can email administrator for support:{' '}
-							<span className='font-semibold'>
-								martha.mandizvidza@gmail.com
-							</span>
+							<span className='font-semibold'>{adminEmail}</span>
 						</p>
 					</>
 				)}

@@ -1,31 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { FaSave } from 'react-icons/fa';
 import accountStore, { Account } from '../../../../stores/AccountStore';
-import { toast } from 'react-toastify';
 
 interface EditAccountProps {
 	accountId: string;
-	onClose: () => void; // Callback to close the Edit view
+	onClose: () => void;
 }
 
 const EditAccount: React.FC<EditAccountProps> = ({ accountId, onClose }) => {
 	const [formData, setFormData] = useState<Account | null>(null);
-	console.log('Edit Account called');
-	// Fetch the account details using the id
 	useEffect(() => {
 		const fetchAccount = async () => {
 			try {
-				const account = accountStore.accounts.find(
-					(acc) => acc.id === accountId
-				);
+				const account = await accountStore.getAccount(accountId);
 				if (account) {
-					setFormData({ ...account });
-				} else {
-					const response = await axios.get<Account>(
-						`http://localhost:8089/api/accounts/${accountId}`
-					);
-					setFormData(response.data);
+					setFormData(account);
 				}
 			} catch (error) {
 				console.error('Error fetching account:', error);
@@ -37,28 +26,16 @@ const EditAccount: React.FC<EditAccountProps> = ({ accountId, onClose }) => {
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => {
+		console.log('[handleChange] form data:', formData);
 		setFormData({ ...formData, [e.target.name]: e.target.value } as Account);
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		try {
-			if (formData) {
-				const response = await axios.put(
-					`http://localhost:8089/api/accounts/${accountId}`,
-					formData
-				);
-				console.log('Account updated successfully:', response.data);
-				accountStore.accounts = accountStore.accounts.map((acc) =>
-					acc.id === accountId ? { ...response.data } : acc
-				);
-				toast.success('Form data edited successfully!');
-				onClose(); // Close the Edit view after successful submission
-			}
-		} catch (error) {
-			console.error('Error updating account:', error);
-			toast.error('Form data editing failed!');
+		if (formData) {
+			await accountStore.editAccount(formData);
 		}
+		onClose();
 	};
 
 	if (!formData) {

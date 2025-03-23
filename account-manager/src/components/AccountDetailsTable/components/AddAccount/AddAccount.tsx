@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { FaPaperPlane } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import accountStore from '../../../../stores/AccountStore';
 
 const AddAccount = () => {
 	const intialFormData = {
@@ -25,20 +25,8 @@ const AddAccount = () => {
 
 		try {
 			// Send the formData without an id to the backend
-			const response = await axios.post(
-				'http://localhost:8089/api/accounts', // API endpoint
-				formData,
-				{
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}
-			);
-
+			await accountStore.addAccount(formData);
 			toast.success('Form data submitted successfully!'); // Show a success toast
-
-			// Log the response to verify success
-			console.log('Form data submitted successfully:', response.data);
 		} catch (error) {
 			toast.error('Error submitting form data!'); // Show an error toast
 			// Log the error to understand what's happening
@@ -130,8 +118,11 @@ const AddAccount = () => {
 						htmlFor='dob'
 						className='block text-gray-300 text-sm font-bold mb-2'
 					>
-						Date of Birth<span className='text-red-500 text-lg'>*</span>
+						<span className='hidden sm:inline'>Date of Birth</span>
+						<span className='inline sm:hidden'>DOB</span>
+						<span className='text-red-500 text-lg'>*</span>
 					</label>
+
 					<input
 						id='dob'
 						type='date'

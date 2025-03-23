@@ -5,7 +5,7 @@ const FilterDropdown: React.FC<{
 	onFilterChange: (filter: string) => void;
 }> = ({ onFilterChange }) => {
 	const [isOpen, setIsOpen] = useState(false); // Track dropdown open/close state
-	const [selectedFilter, setSelectedFilter] = useState('Date of Birth'); // Track the selected filter
+	const [selectedFilter, setSelectedFilter] = useState('DOB'); // Track the selected filter
 
 	const toggleDropdown = () => setIsOpen(!isOpen); // Toggle dropdown visibility
 	const handleFilterChange = (filter: string) => {
@@ -25,7 +25,8 @@ const FilterDropdown: React.FC<{
 				type='button'
 			>
 				<FaFilter className='w-4 h-4 text-dark mr-2' />
-				{selectedFilter}
+				<span className='hidden sm:inline'>Date of Birth</span>
+				<span className='inline sm:hidden'>DOB</span>
 				<FaChevronDown className='w-3 h-3 ml-2' />
 			</button>
 
