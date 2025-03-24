@@ -42,7 +42,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 		includeScore: true
 	};
 
-	const filteredAccounts = fuseSearch(accounts, fuseOptions, searchQuery);
+	const searchAccounts = fuseSearch(accounts, fuseOptions, searchQuery);
 
 	const applyFilter = (accounts: Account[], filter: string) => {
 		const accountsCopy = accounts.slice();
@@ -58,7 +58,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 		return accountsCopy;
 	};
 
-	const sortedAccounts = applyFilter(filteredAccounts, selectedFilter);
+	const sortedAccounts = applyFilter(searchAccounts, selectedFilter);
 
 	const [currentPage, setCurrentPage] = useState(1);
 	const totalPages = Math.ceil(sortedAccounts.length / rowsPerPage);

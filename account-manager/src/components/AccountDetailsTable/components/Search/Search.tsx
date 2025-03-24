@@ -4,7 +4,7 @@ interface SearchProps {
 
 export default function Search({ onSearch }: SearchProps) {
 	return (
-		<div className='flex items-center border border-gray-300 rounded px-3 py-2'>
+		<div className='flex items-center border border-gray-300 rounded px-3 py-2 focus-within:border-blue-500 focus-within:ring focus-within:ring-blue-500'>
 			{/* Accessible Label */}
 			<label htmlFor='search-input' className='sr-only'>
 				Search

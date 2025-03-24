@@ -19,9 +19,12 @@ const BulkUpload: React.FC = () => {
 						// Add accounts in parallel using Promise.all
 						await Promise.all(
 							accounts.map(async (account) => {
+								const editMode =
+									(account.editMode as unknown as string).toLowerCase() ===
+									'true';
 								await accountStore.addAccount({
 									...account,
-									editMode: Boolean(account.editMode) // Ensure editMode is a boolean
+									editMode
 								});
 							})
 						);
