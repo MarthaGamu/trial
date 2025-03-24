@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 import Papa, { ParseResult } from 'papaparse';
 import { toast } from 'react-toastify';
 import { FaCloudUploadAlt } from 'react-icons/fa';
-import accountStore, { Account } from '../../../../stores/AccountStore';
+import accountStore, { Account } from '../../stores/AccountStore';
 
 const BulkUpload: React.FC = () => {
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>): void => {

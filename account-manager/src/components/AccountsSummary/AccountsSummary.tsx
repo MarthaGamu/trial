@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import accountStore from '../../../../stores/AccountStore';
+import accountStore from '../../stores/AccountStore';
 
 const AccountsSummary = observer(() => {
 	const {

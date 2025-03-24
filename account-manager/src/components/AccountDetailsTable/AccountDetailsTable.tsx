@@ -9,7 +9,7 @@ import DeleteNotication from './components/DeleteNotification';
 import fuseSearch from '../../helpers/fuseSearch';
 import AccountTable from './components/AccountTable';
 import Modal from './components/Modal';
-import { accountsTableColumns, adminEmail, rowsPerPage } from './constants';
+import { accountsTableColumns, adminEmail, rowsPerPage } from '../../constants';
 import { FaPlus } from 'react-icons/fa';
 
 const AccountDetailsTable: React.FC = observer(() => {

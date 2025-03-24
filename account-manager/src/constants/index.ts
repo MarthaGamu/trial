@@ -1,4 +1,4 @@
-import { Account } from "../../../stores/AccountStore";
+import { Account } from "../stores/AccountStore";
 
 export const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT || 'http://localhost:8089/api';
 

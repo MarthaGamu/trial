@@ -2,7 +2,7 @@ import { makeAutoObservable, action, computed } from 'mobx';
 import axios from 'axios';
 import { data } from '../data/data';
 import { toast } from 'react-toastify';
-import { API_ENDPOINT } from '../components/AccountDetailsTable/constants';
+import { API_ENDPOINT } from '../constants';
 
 export interface Account {
   id?: string;

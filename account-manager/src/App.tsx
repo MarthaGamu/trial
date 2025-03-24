@@ -3,8 +3,8 @@ import { ToastContainer } from 'react-toastify';
 
 import AccountDetailsTable from './components/AccountDetailsTable/AccountDetailsTable';
 import Footer from './components/Footer';
-import AccountsSummary from './components/AccountDetailsTable/components/AccountsSummary';
-import BulkUpload from './components/AccountDetailsTable/components/BulkUpload';
+import AccountsSummary from './components/AccountsSummary';
+import BulkUpload from './components/BulkUpload';
 
 const App: React.FC = () => {
 	return (
