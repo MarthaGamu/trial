@@ -12,9 +12,9 @@ const AccountsSummary = observer(() => {
 
 	return (
 		<>
-			<div className='max-w-md mt-3 p-4 border rounded-lg shadow-lg bg-white'>
+			<div className='col-span-6 mt-3 p-4 border rounded-lg shadow-lg bg-white'>
 				<h2 className='text-lg font-bold mb-4 text-gray-700'>
-					Accounts Summary
+					Account Details Summary
 				</h2>
 				<table className='table-auto w-full border-collapse border border-gray-300'>
 					<thead>
