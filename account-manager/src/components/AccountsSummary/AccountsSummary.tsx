@@ -8,8 +8,6 @@ const AccountsSummary = observer(() => {
 		numberOfActiveAccounts // Fixed naming for consistency
 	} = accountStore;
 
-	console.log('AccountsSummary', AccountsSummary);
-
 	return (
 		<>
 			<div className='col-span-6 mt-3 p-4 border rounded-lg shadow-lg bg-white'>

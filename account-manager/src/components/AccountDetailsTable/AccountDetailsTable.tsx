@@ -18,7 +18,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 	const [currentAccountId, setCurrentAccountId] = useState<string | null>(null);
 	const [deleteId, setDeleteId] = useState<string | null>(null);
 	const [searchQuery, setSearchQuery] = useState('');
-	const [selectedFilter, setSelectedFilter] = useState('Date of Birth');
+	const [selectedFilter, setSelectedFilter] = useState('Youngest');
 
 	useEffect(() => {
 		accountStore.fetchAccounts();
@@ -120,7 +120,11 @@ const AccountDetailsTable: React.FC = observer(() => {
 				{/* Filters and Search */}
 				{!error && (
 					<div className='flex items-center justify-between mb-4 space-x-4'>
-						<FilterDropdown onFilterChange={handleFilterChange} />
+						<FilterDropdown
+							onFilterChange={handleFilterChange}
+							selectedFilter={selectedFilter}
+							setSelectedFilter={setSelectedFilter}
+						/>
 						<Search
 							onSearch={(query: React.SetStateAction<string>) =>
 								setSearchQuery(query)

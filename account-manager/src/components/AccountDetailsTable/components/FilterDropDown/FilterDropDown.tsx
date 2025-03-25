@@ -3,21 +3,20 @@ import { FaFilter, FaChevronDown } from 'react-icons/fa';
 
 const FilterDropdown: React.FC<{
 	onFilterChange: (filter: string) => void;
-}> = ({ onFilterChange }) => {
-	const [isOpen, setIsOpen] = useState(false); // Track dropdown open/close state
-	const [selectedFilter, setSelectedFilter] = useState('DOB'); // Track the selected filter
+	selectedFilter: string;
+	setSelectedFilter: React.Dispatch<React.SetStateAction<string>>;
+}> = ({ onFilterChange, selectedFilter, setSelectedFilter }) => {
+	const [isOpen, setIsOpen] = useState(false);
 
-	const toggleDropdown = () => setIsOpen(!isOpen); // Toggle dropdown visibility
+	const toggleDropdown = () => setIsOpen(!isOpen);
 	const handleFilterChange = (filter: string) => {
 		setSelectedFilter(filter);
-		setIsOpen(false); // Close dropdown on selection
-		onFilterChange(filter); // Pass the selected filter to the parent
+		setIsOpen(false);
+		onFilterChange(filter);
 	};
 
 	return (
 		<div className='relative inline-block'>
-			{/* Button to toggle the dropdown */}
-
 			<button
 				id='dropdownRadioButton'
 				onClick={toggleDropdown}
@@ -30,7 +29,6 @@ const FilterDropdown: React.FC<{
 				<FaChevronDown className='ml-2' />
 			</button>
 
-			{/* Dropdown menu */}
 			{isOpen && (
 				<div className='z-10 absolute w-48 divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600 mt-2'>
 					<ul className='p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200'>

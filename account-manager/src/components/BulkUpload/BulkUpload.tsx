@@ -22,7 +22,7 @@ const BulkUpload: React.FC = () => {
 								const editMode =
 									(account.editMode as unknown as string).toLowerCase() ===
 									'true';
-								await accountStore.addAccount({
+								return accountStore.addAccount({
 									...account,
 									editMode
 								});
