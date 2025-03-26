@@ -91,7 +91,7 @@ const AccountDetailsTable: React.FC = observer(() => {
 			)}
 			<main className='p-4 bg-white text-black border rounded-lg shadow-lg'>
 				<div className='flex items-end justify-between mb-4 space-x-4'>
-					<h1 className='text-4xl pb-4 font-light'>Account Details</h1>
+					<h1 className='text-4xl pb-4 font-light'>Account Details Table</h1>
 
 					<button
 						className='px-5 py-2.5 text-sm font-medium inline-flex items-center text-dark focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center cursor-pointer'

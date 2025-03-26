@@ -1,0 +1,8 @@
+title,firstName,lastName,dob,editMode
+Ms.,Marie,Curie,2005-12-29,true
+Mr.,Nicholas,Cage,2025-03-24,true
+Dr.,Wilson,Smith,2021-08-27,false
+Miss,Emma,Watson,2022-04-17,true
+Prof.,Albert,Einstein,1989-03-14,true
+Mr.,John,Doe,1990-01-01,false
+Ms.,Jane,Austen,1985-07-18,true
